@@ -11,7 +11,7 @@ body{
 }
 main{
     width: 300px;
-    height: auto;
+    height: 500px;
     background-color: rgb(14, 27, 100);
     border-radius: 30px;
     padding: 20px;
@@ -65,10 +65,10 @@ main{
     margin: 5px;
     border-radius: 5px;
 }
-.cpu,.gamelayout{
+.cpu,.gamePage{
     width: 100%;
     height: auto;
-    display: flex;
+    display:flex;
     flex-direction: column;
 }
 .firstRow{
@@ -99,4 +99,32 @@ main{
     display: flex;
     justify-content: center;
 }
+/*massage box layout*/
+.winMassage{
+    width: 90%;
+    height: auto;
+    border: 1px solid black;
+    display:flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    justify-items: center;
+    border-radius: 10px;
+    position: relative;
+    left: 50%;
+    bottom: 50%;
+    transform: translate(-50%,-50%);
+}
+.massage{
+    margin-top: 10px;
+}
+.backMenu{
+    width: 100%;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    display: flex;
+    flex-direction: row;
+    justify-content:space-around;
+}
+
 
