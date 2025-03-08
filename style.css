@@ -1,8 +1,17 @@
+/*@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&display=swap');*/
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;600&display=swap');
+
 *{
     margin: 0px;
     padding: 0px;
     box-sizing:content-box;
-    color:white;
+    color: #E0BBE4;
+    font-family: 'Poppins', sans-serif;
+}
+i{
+    color: #FFFFFF;
+    font-family: 'Orbitron', sans-serif;
+    text-shadow: 0 0 10px #00FFFF, 0 0 20px #FF0080;
 }
 body{
    display: flex;
@@ -12,15 +21,17 @@ body{
 main{
     width: 300px;
     height: 500px;
-    background-color: rgb(14, 27, 100);
+   /* background: linear-gradient(135deg, #00F260, #0575E6);*/
+   background: linear-gradient(135deg, #6DD5FA, #9400D3, #FF0080);
     border-radius: 30px;
     padding: 20px;
+    box-shadow: 0 0 10px #00FFFF, 0 0 20px #FF0080;
 }
 /*homepage layout desingn*/
 .homePage{
     width: 100%;
     height: 100%;
-    display: flex;
+    display: none;
     flex-direction: column;
     align-items: center;
    justify-content: space-around;
@@ -39,14 +50,18 @@ main{
 #logo{
     width: 70px;
     height:70px;
-    border: 1px solid black;
-    border-radius: 50%;
     font-weight: 50px;
     display: flex;
     justify-content: center;
     align-items:center;
     font-size: 50px;
-    background-color: black;
+    background-color:linear-gradient(135deg, #6DD5FA, #9400D3, #FF0080);
+}
+.logoPic{
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    mix-blend-mode: multiply;
 }
 #play,#exist{
     width: 70px;
@@ -78,7 +93,7 @@ main{
 .cpu,.gamePage{
     width: 100%;
     height: auto;
-    display:none;
+    display:flex;
     flex-direction: column;
 }
 .firstRow{
