@@ -2,7 +2,7 @@
     margin: 0px;
     padding: 0px;
     box-sizing:content-box;
-    color: white;
+    color:white;
 }
 body{
    display: flex;
@@ -19,11 +19,11 @@ main{
 /*homepage layout desingn*/
 .homePage{
     width: 100%;
-    height: auto;
-    display: none;
+    height: 100%;
+    display: flex;
     flex-direction: column;
-    justify-content: space-around;
     align-items: center;
+   justify-content: space-around;
 }
 .top>p{
     text-align: center;
@@ -41,6 +41,12 @@ main{
     height:70px;
     border: 1px solid black;
     border-radius: 50%;
+    font-weight: 50px;
+    display: flex;
+    justify-content: center;
+    align-items:center;
+    font-size: 50px;
+    background-color: black;
 }
 #play,#exist{
     width: 70px;
@@ -55,6 +61,10 @@ main{
     height:50px;
     border: 1px solid black;
     border-radius: 50%;
+    font-size: 50px;
+    display: flex;
+    justify-content: center;
+    background-color: black;
 }
 /*Game page layout*/
 .r-button{
@@ -68,7 +78,7 @@ main{
 .cpu,.gamePage{
     width: 100%;
     height: auto;
-    display:flex;
+    display:none;
     flex-direction: column;
 }
 .firstRow{
@@ -104,7 +114,7 @@ main{
     width: 90%;
     height: auto;
     border: 1px solid black;
-    display:flex;
+    display:none;
     flex-direction: column;
     justify-content: center;
     align-items: center;
