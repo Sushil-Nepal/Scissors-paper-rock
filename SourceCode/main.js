@@ -1,5 +1,6 @@
 document.addEventListener('DOMContentLoaded',()=>{
-    start();//start from home page
+    lodingAnimation();
+   // start();//start from home page
 });
 let userChoice=0,cpuChoice;//score making globel
 //starting
@@ -70,4 +71,77 @@ const checkWiners=(uC,cC)=>{
 }
 const showResult=()=>{
     
+}
+const lodingAnimation=()=>{
+    const canvas = document.getElementById('canvas');
+const ctx = canvas.getContext('2d');
+canvas.width = window.innerWidth;
+canvas.height = window.innerHeight;
+
+const scissor = new Image();
+scissor.src = 'scissor.png'; // Load your scissor image here
+
+const rock = new Image();
+rock.src = 'rock.png'; // Load your rock image here
+
+const paperWidth = 200;
+const paperHeight = 300;
+const paperX = canvas.width / 2 - paperWidth / 2;
+const paperY = canvas.height / 2 - paperHeight / 2;
+let paperCutY = paperY + paperHeight / 2;
+
+let scissorX = 0;
+let rockY = -100;
+let paperFallY = paperCutY;
+let animationStep = 0;
+
+function drawPaper() {
+    ctx.fillStyle = 'white';
+    ctx.fillRect(paperX, paperY, paperWidth, paperHeight);
+    ctx.fillRect(paperX, paperCutY, paperWidth, paperHeight / 2);
+}
+
+function drawScissor() {
+    ctx.drawImage(scissor, scissorX, paperCutY - scissor.height / 2);
+}
+
+function drawRock() {
+    ctx.drawImage(rock, canvas.width / 2 - rock.width / 2, rockY);
+}
+
+function draw() {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    drawPaper();
+    drawScissor();
+    drawRock();
+
+    switch (animationStep) {
+        case 0:
+            scissorX += 5;
+            if (scissorX > canvas.width / 2 - scissor.width / 2) {
+                animationStep++;
+            }
+            break;
+        case 1:
+            rockY += 8;
+            if (rockY > paperCutY - rock.height / 2) {
+                animationStep++;
+            }
+            break;
+        case 2:
+            paperFallY += 3;
+            ctx.fillRect(paperX, paperFallY, paperWidth, paperHeight / 2);
+            if (paperFallY > canvas.height) {
+                animationStep++;
+            }
+            break;
+        default:
+            break;
+    }
+
+    requestAnimationFrame(draw);
+}
+
+scissor.onload = () => rock.onload = draw;
+   
 }
