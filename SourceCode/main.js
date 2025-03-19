@@ -1,18 +1,16 @@
 document.addEventListener('DOMContentLoaded',()=>{
-    lodingAnimation();
-   // start();//start from home page
+    start();//start from home page
 });
-let userChoice=0,cpuChoice;//score making globel
+let userScore=0,cpuScore=0;//score making globel
 //starting
-function start(){
+const start=()=>{
     document.querySelectorAll("#play")[0].addEventListener("click",()=>{
-        let result;
+        let result="";
         gotoGamepage();//switch to game-page;
-        result=startGame();// starting game
-        showResult();
-    })
+        startGame();//start game
+    });
 }
-const gotoGamepage=()=>{
+function gotoGamepage(){
     console.log("click");
     let homePage=document.querySelectorAll(".homePage")[0];
     let gamePage=document.querySelectorAll(".gamePage")[0];
@@ -24,9 +22,9 @@ const gotoGamepage=()=>{
     document.body.style.color="#00FFFF";//change in color
     document.body.style.fontFamily="'Orbitron', sans-serif";//font change
 }
-const startGame=()=>{
-    let chooseOptions=Array.from(document.querySelector("#userChoice").children);//return is object so change into a array.
-    let userChoice,cpuChoice,result;
+function startGame(){
+    let chooseOptions=Array.from(document.querySelectorAll(".choices"));//return is object so change into a array.
+    let userChoice,cpuChoice,result="";
     console.log(chooseOptions);
     let option=["scissor","paper","rock"];
     let cpuIndex;
@@ -36,13 +34,15 @@ const startGame=()=>{
             cpuIndex=Math.floor(Math.random()*option.length);
             cpuChoice=option[cpuIndex];
             console.log("Cpu=",cpuChoice,"user=",userChoice);
-            displayCpuChoice(cpuChoice);
+            displayChoice(cpuChoice);
+            displayChoice(userChoice);
             result=checkWiners(userChoice,cpuChoice);
-        })
+            showResult(result);
+        });
     });
-    return result;
 }
-const displayCpuChoice=(c)=>{
+let user=0;
+function displayChoice(c){
     let icon=document.createElement("i");
     if(c==="scissor"){
         icon.classList.add("fa-regular","fa-hand-scissors");
@@ -53,95 +53,73 @@ const displayCpuChoice=(c)=>{
     }else{
         console.log("WrongChoice");
     }
+    let parentDiv;
     console.log(icon);
-    let parentDiv=document.getElementById("displyChoice");
+    if(user==1){
+        parentDiv=document.getElementById("choseOne");
+        let chis= document.querySelectorAll(".choices");
+        console.log(chis);
+        chis.forEach((ch)=>{
+            ch.style.display="none";
+        })
+        parentDiv.style.display="flex";
         parentDiv.appendChild(icon);
+        user=0;
+    }else{
+        parentDiv=document.getElementById("displyChoice");
+        parentDiv.appendChild(icon);
+        user=1;
+    }
 }
-const checkWiners=(uC,cC)=>{
+function checkWiners(uC,cC){
     let r="";
     if(uC===cC){
         r="draw";
     }else if((uC=="scissor"&&cC=="paper")||(uC=="paper"&&cC=="rock")||(uC=="rock"&&cC=="scissor")){
         r="win";
+        userScore++;
+        document.getElementById("userScore").innerText=userScore;
     }else{
-        r="loose"
+        r="loose";
+        cpuScore++;
+        document.getElementById("cpuScore").innerText=cpuScore;
+
     };
     console.log(r);
     return r;
 }
-const showResult=()=>{
-    
-}
-const lodingAnimation=()=>{
-    const canvas = document.getElementById('canvas');
-const ctx = canvas.getContext('2d');
-canvas.width = window.innerWidth;
-canvas.height = window.innerHeight;
+function showResult(result){
 
-const scissor = new Image();
-scissor.src = 'scissor.png'; // Load your scissor image here
-
-const rock = new Image();
-rock.src = 'rock.png'; // Load your rock image here
-
-const paperWidth = 200;
-const paperHeight = 300;
-const paperX = canvas.width / 2 - paperWidth / 2;
-const paperY = canvas.height / 2 - paperHeight / 2;
-let paperCutY = paperY + paperHeight / 2;
-
-let scissorX = 0;
-let rockY = -100;
-let paperFallY = paperCutY;
-let animationStep = 0;
-
-function drawPaper() {
-    ctx.fillStyle = 'white';
-    ctx.fillRect(paperX, paperY, paperWidth, paperHeight);
-    ctx.fillRect(paperX, paperCutY, paperWidth, paperHeight / 2);
-}
-
-function drawScissor() {
-    ctx.drawImage(scissor, scissorX, paperCutY - scissor.height / 2);
-}
-
-function drawRock() {
-    ctx.drawImage(rock, canvas.width / 2 - rock.width / 2, rockY);
-}
-
-function draw() {
-    ctx.clearRect(0, 0, canvas.width, canvas.height);
-    drawPaper();
-    drawScissor();
-    drawRock();
-
-    switch (animationStep) {
-        case 0:
-            scissorX += 5;
-            if (scissorX > canvas.width / 2 - scissor.width / 2) {
-                animationStep++;
+    console.log("showResult=",result);
+    if((userScore<3&&cpuScore<3)&&(userScore!=0||cpuScore!=0)){
+            document.getElementById("minmsgCpu").style.display="flex";
+            document.getElementById("minmsgUser").style.display="flex";
+            if(result==="win"){
+                document.getElementById("massageUser").innerText="yah!!o ho";
+                document.getElementById("massageCpu").innerText="oppss!!";
             }
-            break;
-        case 1:
-            rockY += 8;
-            if (rockY > paperCutY - rock.height / 2) {
-                animationStep++;
+            else if(result==="loose"){
+                document.getElementById("massageUser").innerText="oppss!!";
+                document.getElementById("massageCpu").innerText="yah!!o ho";
+            }else{
+                document.getElementById("massageUser").innerText="Do it again";
+                document.getElementById("massageCpu").innerText="Do it again";
             }
-            break;
-        case 2:
-            paperFallY += 3;
-            ctx.fillRect(paperX, paperFallY, paperWidth, paperHeight / 2);
-            if (paperFallY > canvas.height) {
-                animationStep++;
-            }
-            break;
-        default:
-            break;
+  
     }
+    else if(result=="draw"&&(userScore==0&&cpuScore==0)){
+        document.getElementById("massageUser").innerText="Do it again";
+        document.getElementById("massageCpu").innerText="Do it again";
 
-    requestAnimationFrame(draw);
-}
+    }
+    else if(userScore==3||cpuScore==3){
+        document.getElementById("winMassage").style.display="flex";
+        if(userScore==3){
+            document.getElementById("massage").innerText="You Win";
+        }else{
+            document.getElementById("massage").innerText="You Loose";
+        }
+    }else{
 
-scissor.onload = () => rock.onload = draw;
-   
+    }
 }

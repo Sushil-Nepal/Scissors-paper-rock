@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="/Scissors-paper-rock/style.css">
+    <link rel="stylesheet" href="./style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg==" 
     crossorigin="anonymous" referrerpolicy="no-referrer" />
     <title>Document</title>
@@ -13,7 +13,7 @@
         <div class="homePage">
             <div class="top-homePage">
                 <div id="game-logo">
-                   <img class="logoPic" src="/Scissors-paper-rock/logo.png" alt="logo">
+                   <img class="logoPic" src="/spr/Scissors-paper-rock/photo/logo.png" alt="logo">
                 </div>
                 <p>SRC</p>
             </div>
@@ -40,19 +40,26 @@
                     </div>
                     <div class="left">
                         <p>Score</p>
-                        <div id="cpu-score">0</div>
-                    </div>
+                        <div id="cpuScore">0</div>
+                    </div>   
+                </div>
+                <div id="minmsgCpu">
+                    <p id="massageCpu">Yey!!!!</p>
                 </div>
                 <div class="secondRow">
                     <div class="r-button" id="displyChoice"></div>
                 </div>
             </div>
-                
+            
             <div class="user">
                 <div class="secondRow" id="userChoice">
-                    <div class="r-button" id="scissor"><i class="fa-regular fa-hand-scissors"></i></div>
-                    <div class="r-button" id="paper"><i class="fa-solid fa-hand"></i></div>
-                    <div class="r-button" id="rock"><i class="fa-solid fa-hand-back-fist"></i></div>
+                    <div class="r-button choices" id="scissor"><i class="fa-regular fa-hand-scissors"></i></div>
+                    <div class="r-button choices" id="paper"><i class="fa-solid fa-hand"></i></div>
+                    <div class="r-button choices" id="rock"><i class="fa-solid fa-hand-back-fist"></i></div>
+                    <div class="r-button" id="choseOne"></div>
+                </div>
+                <div id="minmsgUser">
+                    <p id="massageUser">Yey!!!!</p>
                 </div>
                 <div class="firstRow">
                     <div class="right">
@@ -63,7 +70,7 @@
                     </div>
                     <div class="left">
                         <p>Score</p>
-                        <div id="user-score">0</div>
+                        <div id="userScore">0</div>
                     </div>
                 </div>
             </div>
@@ -72,17 +79,13 @@
                 <p>Quit</p>
             </div>
         </div>
-        <div class="winMassage">
-            <div class="massage">You Won</div>
-            <div class="backMenu">
+        <div id="winMassage">
+            <div id="massage">You Won</div>
+            <div id="backMenu">
                 <div class="c-button" id="Resume"><i class="fa-solid fa-circle-play"></i></div>
                 <div class="c-button" id="back"><i class="fa-solid fa-circle-left"></i></div>
             </div>
         </div>
-        <div id="animation">
-            <div id="title">SCISSOR PAPER ROCK</div>
-            <canvas id="canvas"></canvas>
-        </div>
-        <script src="/Scissors-paper-rock/main.js"></script><!--script cdn of lottie-web-->
+        <script src="./main.js"></script><!--script cdn of lottie-web-->
 </body>
 </html>
