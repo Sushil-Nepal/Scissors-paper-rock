@@ -23,6 +23,7 @@ function gotoGamepage(){
     document.body.style.fontFamily="'Orbitron', sans-serif";//font change
 }
 function startGame(){
+    nextRound("Start Game");
     let chooseOptions=Array.from(document.querySelectorAll(".choices"));//return is object so change into a array.
     let userChoice,cpuChoice,result="";
     console.log(chooseOptions);
@@ -65,10 +66,13 @@ function displayChoice(c){
         parentDiv.style.display="flex";
         parentDiv.appendChild(icon);
         user=0;
+        console.log("user=",user);
     }else{
         parentDiv=document.getElementById("displyChoice");
+        parentDiv.style.display="flex";
         parentDiv.appendChild(icon);
         user=1;
+        console.log("user=",user);
     }
 }
 function checkWiners(uC,cC){
@@ -78,11 +82,11 @@ function checkWiners(uC,cC){
     }else if((uC=="scissor"&&cC=="paper")||(uC=="paper"&&cC=="rock")||(uC=="rock"&&cC=="scissor")){
         r="win";
         userScore++;
-        document.getElementById("userScore").innerText=userScore;
+            document.getElementById("userScore").innerText=`${userScore}/3`;
     }else{
         r="loose";
         cpuScore++;
-        document.getElementById("cpuScore").innerText=cpuScore;
+        document.getElementById("cpuScore").innerText=`${cpuScore}/3`;
 
     };
     console.log(r);
@@ -105,12 +109,21 @@ function showResult(result){
                 document.getElementById("massageUser").innerText="Do it again";
                 document.getElementById("massageCpu").innerText="Do it again";
             }
+            setInterval(()=>{
+                document.getElementById("minmsgCpu").style.display="none";
+                document.getElementById("minmsgUser").style.display="none";
+            },2000);
+        nextRound("Next Round");
   
     }
     else if(result=="draw"&&(userScore==0&&cpuScore==0)){
         document.getElementById("massageUser").innerText="Do it again";
         document.getElementById("massageCpu").innerText="Do it again";
-
+        setInterval(()=>{
+            document.getElementById("minmsgCpu").style.display="none";
+            document.getElementById("minmsgUser").style.display="none";
+        },2000);
+        nextRound("Next Round");
     }
     else if(userScore==3||cpuScore==3){
         document.getElementById("winMassage").style.display="flex";
@@ -122,4 +135,29 @@ function showResult(result){
     }else{
 
     }
+}
+function nextRound(msg){
+    document.querySelector(".roundMsg").innerText=msg;
+    setTimeout(()=>{
+        document.querySelector(".roundMsg").style.display="flex";
+    },1000);
+    setTimeout(()=>{
+        document.querySelector(".roundMsg").style.display="none";
+    },3000);
+    resetRound();
+    document.getElementById("choseOne").style.display="none";//hide user choice
+    document.querySelectorAll(".choices").forEach((choice)=>{
+        choice.style.display="flex";});//display all choices
+    document.getElementById("choseOne").innerHTML="";//remove user choice
+    document.getElementById("displyChoice").innerHTML="";//remove cpu choice
+
+    }
+function resetRound(){
+    setTimeout(()=>{
+        document.getElementById("choseOne").style.display="none";//hide user choice
+        document.querySelectorAll(".choices").forEach((choice)=>{
+            choice.style.display="flex";});//display all choices
+        document.getElementById("choseOne").innerHTML="";//remove user choice
+        document.getElementById("displyChoice").innerHTML="";//remove cpu choice
+    },3000);
 }

@@ -154,21 +154,41 @@ body{
     width: 30%;
     height: 20dvh;
     display:none;/*Inline*/
+    flex-direction: column;
     justify-content: center;
     align-items: center;
     position: fixed;
     left: 50%;
-    top: 50%;
+    top: 40%;
     transform:translate(-50%,-50%) ;
     border-radius: 10px;
-    background-color:linear-gradient(135deg, #6DD5FA, #9400D3, #FF0080);;
+    background-color:linear-gradient(135deg, #6DD5FA, #9400D3, #FF0080);
     i{
         color: #FFFFFF;
         text-shadow: 0 0 10px #00FFFF, 0 0 20px #FF0080;
     }
 }
+.roundMsg{
+    width: 20%;
+    height: 10dvh;
+    color: #FFFFFF;
+    text-shadow: 0 0 10px #00FFFF, 0 0 20px #FF0080;
+    display:none;/*Inline*/
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    position: fixed;
+    left: 50%;
+    top: 40%;
+    transform:translate(-50%,-50%) ;
+    border-radius: 10px;
+    background-color:lightskyblue;
+
+}
 #massage{
     width: 100%;
+    display: flex;
+    justify-content: center;
     text-align: center;
     height: 30px;
 }
