@@ -1,3 +1,4 @@
+let user=1;//for check user choice and cpu choice
 document.addEventListener('DOMContentLoaded',()=>{
     start();//start from home page
 });
@@ -9,13 +10,14 @@ const start=()=>{
         gotoGamepage();//switch to game-page;
         startGame();//start game
     });
+    document.getElementById("beforeTab").addEventListener("click",()=>{
+        window.open("https://www.google.com", "_self");
+    });
 }
 function gotoGamepage(){
     console.log("click");
     let homePage=document.querySelectorAll(".homePage")[0];
     let gamePage=document.querySelectorAll(".gamePage")[0];
-    console.log(homePage);
-    console.log(gamePage);
     homePage.style.display="none";//home layout display none
     gamePage.style.display="flex";//game page display flex
     document.body.style.background="linear-gradient(135deg, #200122, #0A0F24, #200122)";//bg-color for Game page
@@ -24,6 +26,8 @@ function gotoGamepage(){
 }
 function startGame(){
     nextRound("Start Game");
+    userScore=0;
+    cpuScore=0;
     let chooseOptions=Array.from(document.querySelectorAll(".choices"));//return is object so change into a array.
     let userChoice,cpuChoice,result="";
     console.log(chooseOptions);
@@ -35,14 +39,28 @@ function startGame(){
             cpuIndex=Math.floor(Math.random()*option.length);
             cpuChoice=option[cpuIndex];
             console.log("Cpu=",cpuChoice,"user=",userChoice);
-            displayChoice(cpuChoice);
             displayChoice(userChoice);
+            displayChoice(cpuChoice);
             result=checkWiners(userChoice,cpuChoice);
             showResult(result);
         });
     });
+    document.getElementById("resign").addEventListener("click",()=>{
+        console.log("resign");
+        document.getElementById("massage").innerText="ARE YOU SURE?";
+        document.getElementById("winMassage").style.display="flex"; 
+        if(userScore!=3&&cpuScore!=3){
+            document.getElementById("Resume").addEventListener("click",()=>{
+                document.getElementById("winMassage").style.display="none";    
+            });
+            document.getElementById("back").addEventListener("click",()=>{
+                document.getElementById("winMassage").style.display="none";
+                backtoHome();
+            });
+        }
+    });
+
 }
-let user=0;
 function displayChoice(c){
     let icon=document.createElement("i");
     if(c==="scissor"){
@@ -62,17 +80,23 @@ function displayChoice(c){
         console.log(chis);
         chis.forEach((ch)=>{
             ch.style.display="none";
-        })
+        });
+        parentDiv.innerHTML="";
         parentDiv.style.display="flex";
         parentDiv.appendChild(icon);
-        user=0;
+        user = 0; 
+        console.log("user=",user);
+    }else if(user==0){
+        parentDiv=document.getElementById("displyChoice");
+        parentDiv.innerHTML="";
+        parentDiv.style.display="flex";
+        parentDiv.appendChild(icon);
+        user = 1;
+        console.log(icon);
+        console.log("CparentDiv=",parentDiv);    
         console.log("user=",user);
     }else{
-        parentDiv=document.getElementById("displyChoice");
-        parentDiv.style.display="flex";
-        parentDiv.appendChild(icon);
-        user=1;
-        console.log("user=",user);
+        console.log("WrongChoice");
     }
 }
 function checkWiners(uC,cC){
@@ -132,6 +156,16 @@ function showResult(result){
         }else{
             document.getElementById("massage").innerText="You Loose";
         }
+        document.getElementById("Resume").addEventListener("click",()=>{
+            document.getElementById("winMassage").style.display="none";
+            document.getElementById("displyChoice").innerHTML="";
+            startGame();
+        });
+        document.getElementById("back").addEventListener("click",()=>{
+            document.getElementById("winMassage").style.display="none";
+            document.getElementById("displyChoice").innerHTML="";
+            backtoHome();
+        });    
     }else{
 
     }
@@ -149,8 +183,6 @@ function nextRound(msg){
     document.querySelectorAll(".choices").forEach((choice)=>{
         choice.style.display="flex";});//display all choices
     document.getElementById("choseOne").innerHTML="";//remove user choice
-    document.getElementById("displyChoice").innerHTML="";//remove cpu choice
-
     }
 function resetRound(){
     setTimeout(()=>{
@@ -158,6 +190,16 @@ function resetRound(){
         document.querySelectorAll(".choices").forEach((choice)=>{
             choice.style.display="flex";});//display all choices
         document.getElementById("choseOne").innerHTML="";//remove user choice
-        document.getElementById("displyChoice").innerHTML="";//remove cpu choice
     },3000);
 }
+//BACK TO HOME PAGE
+function backtoHome(){
+    let homePage=document.querySelectorAll(".homePage")[0];
+    let gamePage=document.querySelectorAll(".gamePage")[0];
+    homePage.style.display="flex";//home layout display none
+    gamePage.style.display="none";//game page display flex
+    document.getElementById("winMassage").style.display="none";
+    document.body.style.background="linear-gradient(135deg, #6DD5FA, #9400D3, #FF0080)";//bg-color for Game page
+    document.body.style.color=" #FFFFFF";//change in color
+    document.body.style.fontFamily="'Poppins', sans-serif";//font change
+} 
