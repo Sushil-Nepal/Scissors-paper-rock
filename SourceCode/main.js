@@ -15,7 +15,10 @@ const start=()=>{
     });
 }
 function gotoGamepage(){
-    console.log("click");
+    userScore=0;
+    cpuScore=0;
+    document.getElementById("userScore").innerText=`${userScore}/3`;
+    document.getElementById("cpuScore").innerText=`${cpuScore}/3`;
     let homePage=document.querySelectorAll(".homePage")[0];
     let gamePage=document.querySelectorAll(".gamePage")[0];
     homePage.style.display="none";//home layout display none
@@ -26,11 +29,11 @@ function gotoGamepage(){
 }
 function startGame(){
     nextRound("Start Game");
-    userScore=0;
-    cpuScore=0;
+    document.querySelectorAll(".choices").forEach((choice)=>{
+        choice.style.display="flex";
+    });
     let chooseOptions=Array.from(document.querySelectorAll(".choices"));//return is object so change into a array.
     let userChoice,cpuChoice,result="";
-    console.log(chooseOptions);
     let option=["scissor","paper","rock"];
     let cpuIndex;
     chooseOptions.forEach((choice,i) => {
@@ -38,7 +41,6 @@ function startGame(){
             userChoice=option[i];
             cpuIndex=Math.floor(Math.random()*option.length);
             cpuChoice=option[cpuIndex];
-            console.log("Cpu=",cpuChoice,"user=",userChoice);
             displayChoice(userChoice);
             displayChoice(cpuChoice);
             result=checkWiners(userChoice,cpuChoice);
@@ -46,12 +48,12 @@ function startGame(){
         });
     });
     document.getElementById("resign").addEventListener("click",()=>{
-        console.log("resign");
         document.getElementById("massage").innerText="ARE YOU SURE?";
         document.getElementById("winMassage").style.display="flex"; 
         if(userScore!=3&&cpuScore!=3){
             document.getElementById("Resume").addEventListener("click",()=>{
-                document.getElementById("winMassage").style.display="none";    
+                document.getElementById("winMassage").style.display="none";
+                startGame();    
             });
             document.getElementById("back").addEventListener("click",()=>{
                 document.getElementById("winMassage").style.display="none";
@@ -73,11 +75,9 @@ function displayChoice(c){
         console.log("WrongChoice");
     }
     let parentDiv;
-    console.log(icon);
     if(user==1){
         parentDiv=document.getElementById("choseOne");
         let chis= document.querySelectorAll(".choices");
-        console.log(chis);
         chis.forEach((ch)=>{
             ch.style.display="none";
         });
@@ -85,16 +85,12 @@ function displayChoice(c){
         parentDiv.style.display="flex";
         parentDiv.appendChild(icon);
         user = 0; 
-        console.log("user=",user);
     }else if(user==0){
         parentDiv=document.getElementById("displyChoice");
         parentDiv.innerHTML="";
         parentDiv.style.display="flex";
         parentDiv.appendChild(icon);
         user = 1;
-        console.log(icon);
-        console.log("CparentDiv=",parentDiv);    
-        console.log("user=",user);
     }else{
         console.log("WrongChoice");
     }
@@ -106,19 +102,20 @@ function checkWiners(uC,cC){
     }else if((uC=="scissor"&&cC=="paper")||(uC=="paper"&&cC=="rock")||(uC=="rock"&&cC=="scissor")){
         r="win";
         userScore++;
+        console.log("userScore= ",userScore);
+        console.log("cpuScore=",cpuScore);
             document.getElementById("userScore").innerText=`${userScore}/3`;
     }else{
         r="loose";
         cpuScore++;
+        console.log("cpuScore=",cpuScore);
+        console.log("userScore= ",userScore);
         document.getElementById("cpuScore").innerText=`${cpuScore}/3`;
 
     };
-    console.log(r);
     return r;
 }
 function showResult(result){
-
-    console.log("showResult=",result);
     if((userScore<3&&cpuScore<3)&&(userScore!=0||cpuScore!=0)){
             document.getElementById("minmsgCpu").style.display="flex";
             document.getElementById("minmsgUser").style.display="flex";
@@ -158,16 +155,26 @@ function showResult(result){
         }
         document.getElementById("Resume").addEventListener("click",()=>{
             document.getElementById("winMassage").style.display="none";
+            document.getElementById("choseOne").style.display="none";
             document.getElementById("displyChoice").innerHTML="";
-            startGame();
+            document.querySelectorAll(".choices").forEach((choice)=>{
+                choice.style.display="flex";
+            });
+            
+            gotoGamepage();
         });
         document.getElementById("back").addEventListener("click",()=>{
             document.getElementById("winMassage").style.display="none";
             document.getElementById("displyChoice").innerHTML="";
             backtoHome();
-        });    
+        });
+        userScore=0;
+        cpuScore=0;  
     }else{
-
+        userScore=0;
+        cpuScore=0;
+        document.getElementById("userScore").innerText=`${userScore}/3`;
+        document.getElementById("cpuScore").innerText=`${cpuScore}/3`;
     }
 }
 function nextRound(msg){
