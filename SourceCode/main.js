@@ -11,7 +11,9 @@ const start=()=>{
         startGame();//start game
     });
     document.getElementById("beforeTab").addEventListener("click",()=>{
-        window.open("https://www.google.com", "_self");
+       newTab=window.open("https://www.google.com", "_self");
+       // Close the new empty tab
+       newTab.close();
     });
 }
 function gotoGamepage(){
